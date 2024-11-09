@@ -2,8 +2,8 @@ const NOTES_PER_PAGE = 12;
 let currentPage = 1;
 
 const APP_VERSION = localStorage.getItem('APP_VERSION') || '1.0.1';
-const VERSION_CHECK_URL = 'http://localhost:8000/version.json'; // For development
-// const VERSION_CHECK_URL = 'https://raw.githubusercontent.com/Thiararapeter/NoteKeeper/main/version.json'; // For production
+// const VERSION_CHECK_URL = 'http://localhost:8000/version.json'; // For development
+const VERSION_CHECK_URL = 'https://notekeeper-git-main-thiararapeters-projects.vercel.app/version.json'; // For production
 
 async function checkForUpdates() {
     try {
@@ -679,4 +679,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check for updates
     checkForUpdates();
+
+    // Add to your DOMContentLoaded event
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        // Show your install button or UI element
+        showInstallButton();
+    });
+
+    function showInstallButton() {
+        // Create install button
+        const installBtn = document.createElement('button');
+        installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
+        installBtn.className = 'install-button';
+        installBtn.onclick = installApp;
+        
+        // Add to navbar or wherever you want
+        document.querySelector('.nav-links').appendChild(installBtn);
+    }
+
+    async function installApp() {
+        if (!deferredPrompt) return;
+        
+        // Show the install prompt
+        deferredPrompt.prompt();
+        
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        // We no longer need the prompt
+        deferredPrompt = null;
+        
+        if (outcome === 'accepted') {
+            showNotification('App installed successfully!', 'success');
+        }
+    }
 });

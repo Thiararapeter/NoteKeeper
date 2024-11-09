@@ -1879,3 +1879,20 @@ input:valid, textarea:valid, select:valid {
     text-align: center;
     padding: 1rem;
 }
+
+.install-button {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.install-button:hover {
+    background: #0769b5;
+    transform: translateY(-2px);
+}
