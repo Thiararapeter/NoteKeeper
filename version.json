@@ -1,6 +1,6 @@
 {
 
-    "version": "1.0.3",
+    "version": "1.0.4",
 
     "releaseDate": "2024-03-14",
 
@@ -10,19 +10,41 @@
 
     "changelog": [
 
-        "Added Progressive Web App (PWA) support",
+        "Added detailed changelog page",
 
-        "App can now be installed on devices",
+        "Added version history tracking",
 
-        "Added offline support",
+        "Improved update notification system",
 
-        "Improved app performance",
+        "Enhanced user interface",
 
-        "Added app icons for better installation experience"
+        "Added 'Made with ❤️' footer"
 
     ],
 
     "changelogHistory": [
+
+        {
+
+            "version": "1.0.4",
+
+            "date": "2024-03-14",
+
+            "changes": [
+
+                "Added detailed changelog page",
+
+                "Added version history tracking",
+
+                "Improved update notification system",
+
+                "Enhanced user interface",
+
+                "Added 'Made with ❤️' footer"
+
+            ]
+
+        },
 
         {
 

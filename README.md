@@ -100,9 +100,9 @@ This project is licensed under the MIT License.
 ## 👤 Author
 
 **Peter Thiarara**
-- GitHub: [@Thiararapeter](https://github.com/Thiararapeter)
-- Twitter: [@thiararapeter](https://x.com/thiararapeter)
-- LinkedIn: [Peter Thiarara](https://www.linkedin.com/in/thiararapeter/)
+- GitHub: [@Thiarara SuperWP](https://github.com/Thiararapeter)
+- Twitter: [@thiarara SuperWP](https://x.com/thiararapeter)
+- LinkedIn: [Thiarara SuperWP](https://www.linkedin.com/in/thiararapeter/)
 
 ## 🔮 Future Features
 

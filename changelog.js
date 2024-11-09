@@ -34,13 +34,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         appVersionElement.textContent = data.version;
         releaseDateElement.textContent = `Released: ${new Date(data.releaseDate).toLocaleDateString()}`;
 
-        // Create changelog entries
-        const changelogHTML = data.changelog.map(change => `
-            <div class="changelog-entry">
-                <i class="fas fa-circle"></i>
-                <span>${change}</span>
+        // Create changelog entries from history
+        const changelogHTML = data.changelogHistory.map(version => `
+            <div class="changelog-version">
+                <div class="version-header">
+                    <h3>Version ${version.version}</h3>
+                    <span class="version-date">${new Date(version.date).toLocaleDateString()}</span>
+                </div>
+                <div class="version-changes">
+                    ${version.changes.map(change => `
+                        <div class="changelog-entry">
+                            <i class="fas fa-circle"></i>
+                            <span>${change}</span>
+                        </div>
+                    `).join('')}
+                </div>
             </div>
-        `).join('');
+        `).join('<hr>');
 
         changelogContent.innerHTML = changelogHTML;
     } catch (error) {

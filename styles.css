@@ -1896,3 +1896,120 @@ input:valid, textarea:valid, select:valid {
     background: #0769b5;
     transform: translateY(-2px);
 }
+
+/* Add to your existing footer styles */
+.footer-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.made-with {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.made-with a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.made-with a:hover {
+    color: #0769b5;
+}
+
+.heart {
+    color: #e74c3c;
+    display: inline-block;
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@media (max-width: 768px) {
+    .footer-text {
+        align-items: center;
+    }
+}
+
+/* Update footer styles */
+.footer-love {
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.made-with {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.made-with a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.made-with a:hover {
+    color: #0769b5;
+}
+
+.heart {
+    color: #e74c3c;
+    display: inline-block;
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Add these changelog-specific styles */
+.changelog-version {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+}
+
+.version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.version-header h3 {
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.version-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.version-changes {
+    padding-left: 1rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+.changelog-version:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.changelog-version:last-child hr {
+    display: none;
+}
