@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Note Taking App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>NoteKeeper</span>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a></li>
+                <li><a href="changelog.html">
+                    <i class="fas fa-history"></i>
+                    <span>Changelog</span>
+                </a></li>
+                <li>
+                    <button id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup">
+            <button class="popup-close" id="popup-close" aria-label="Close popup">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Add New Note</h2>
+            <form id="add-note-form" class="note-input">
+                <input type="text" id="note-title" placeholder="Note Title" required>
+                <div class="category-section">
+                    <select id="note-category" required>
+                        <option value="">Select Category</option>
+                        <!-- Categories will be loaded dynamically -->
+                    </select>
+                    <button type="button" id="manage-categories" class="secondary">
+                        <i class="fas fa-cog"></i> Manage
+                    </button>
+                </div>
+                <div class="editor-toolbar">
+                    <button type="button" data-command="bold" title="Bold">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button type="button" data-command="italic" title="Italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button type="button" data-command="underline" title="Underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                    <button type="button" data-command="insertUnorderedList" title="Bullet List">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <button type="button" data-command="insertOrderedList" title="Numbered List">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                </div>
+                <div id="note-content" class="rich-editor" contenteditable="true" required></div>
+                <div class="button-group">
+                    <button type="submit" id="add-note">
+                        <i class="fas fa-plus"></i> Add Note
+                    </button>
+                    <button type="reset" id="clear-form" class="secondary">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Category Management Modal -->
+    <div class="popup-overlay" id="category-modal-overlay">
+        <div class="popup category-modal">
+            <button class="popup-close" id="category-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Manage Categories</h2>
+            <form id="add-category-form">
+                <div class="input-group">
+                    <input type="text" id="new-category" placeholder="New Category Name" required>
+                    <div class="color-input-group">
+                        <input type="color" id="category-color" value="#81ecec" title="Choose badge color">
+                        <span class="color-tooltip">Badge color</span>
+                    </div>
+                    <button type="submit">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+            </form>
+            <div class="categories-list" id="categories-list">
+                <!-- Categories will be listed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this after your existing modals -->
+    <div class="popup-overlay" id="version-history-modal">
+        <div class="popup version-modal">
+            <button class="popup-close" id="version-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Version History</h2>
+            <div class="version-list" id="version-list">
+                <!-- Versions will be listed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this after your existing modals -->
+    <div class="popup-overlay" id="view-note-modal">
+        <div class="popup view-note-modal">
+            <button class="popup-close" id="view-note-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="view-note-content">
+                <div class="view-note-header">
+                    <h2 id="view-note-title"></h2>
+                    <span class="note-category" id="view-note-category"></span>
+                </div>
+                <div class="view-note-meta">
+                    <span class="timestamp">
+                        <i class="far fa-clock"></i> 
+                        <span id="view-note-timestamp"></span>
+                    </span>
+                </div>
+                <div class="view-note-body" id="view-note-body"></div>
+                <div class="view-note-actions">
+                    <button class="edit-button" id="view-note-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button id="view-note-favorite">
+                        <i class="fas fa-star"></i> Favorite
+                    </button>
+                    <button class="delete-button" id="view-note-delete">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="add-note-btn" id="add-note-btn">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <div class="container">
+        <h1>📝 Note Taking App</h1>
+        <div class="search-bar">
+            <input type="text" id="search-notes" placeholder="Search notes...">
+        </div>
+        <div class="notes-header">
+            <h2>My Notes</h2>
+            <select id="category-filter">
+                <option value="all">All Categories</option>
+                <option value="personal">Personal</option>
+                <option value="work">Work</option>
+                <option value="study">Study</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="pinned-notes" id="pinned-notes">
+            <h3>📌 Pinned Notes</h3>
+            <div class="notes-grid" id="pinned-notes-container"></div>
+        </div>
+        <div class="favorited-notes" id="favorited-notes">
+            <h3>⭐ Favorited Notes</h3>
+            <div class="notes-grid" id="favorited-notes-container"></div>
+        </div>
+        <div class="notes-grid" id="notes-container">
+            <!-- Notes will be added here dynamically -->
+        </div>
+    </div>
+
+    <!-- Add this before the footer -->
+    <div class="pagination" id="pagination">
+        <button class="pagination-btn" id="prev-page" disabled>
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <div class="page-info">
+            Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+        </div>
+        <button class="pagination-btn" id="next-page">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <span class="connect-text">Connect:</span>
+                <a href="https://github.com/Thiararapeter" target="_blank" title="GitHub" class="social-btn">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/thiararapeter" target="_blank" title="Twitter" class="social-btn">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/thiararapeter/" target="_blank" title="LinkedIn" class="social-btn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <p class="copyright">&copy; <span id="current-year"></span> NoteKeeper. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Add this right after the body tag -->
+    <div class="notification-container" id="notification-container"></div>
+</body>
+</html> 

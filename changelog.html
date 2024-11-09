@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - NoteKeeper</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>NoteKeeper</span>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a></li>
+                <li><a href="changelog.html" class="active">
+                    <i class="fas fa-history"></i>
+                    <span>Changelog</span>
+                </a></li>
+                <li>
+                    <button id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>📋 Changelog</h1>
+        <div class="version-info">
+            <span class="current-version">Current Version: <strong id="app-version">loading...</strong></span>
+            <span class="release-date" id="release-date">loading...</span>
+        </div>
+        <div class="changelog-content" id="changelog-content">
+            <!-- Changelog entries will be loaded here -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <span class="connect-text">Connect:</span>
+                <a href="https://github.com/Thiararapeter" target="_blank" title="GitHub" class="social-btn">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/thiararapeter" target="_blank" title="Twitter" class="social-btn">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/thiararapeter/" target="_blank" title="LinkedIn" class="social-btn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <p class="copyright">&copy; <span id="current-year"></span> NoteKeeper. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="changelog.js"></script>
+</body>
+</html> 
