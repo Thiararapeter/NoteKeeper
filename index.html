@@ -240,33 +240,68 @@
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
-                        
-                        // Prevent immediate refresh on update
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // Only post message if there's an update
-                                    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-                                }
-                            });
-                        });
                     })
                     .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
+                        console.error('ServiceWorker registration failed: ', err);
                     });
             });
 
-            // Control the reload behavior
-            let refreshing = false;
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-                if (!refreshing) {
-                    refreshing = true;
-                    // Only reload if there's an actual update
-                    if (document.visibilityState === 'visible') {
-                        window.location.reload();
-                    }
+            // Handle PWA installation
+            let deferredPrompt;
+
+            // Show install button when installation is available
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent Chrome 67 and earlier from automatically showing the prompt
+                e.preventDefault();
+                
+                // Store the event for later use
+                deferredPrompt = e;
+                
+                // Show install button in navbar
+                const navLinks = document.querySelector('.nav-links');
+                if (!document.querySelector('.install-button')) {
+                    const installButton = document.createElement('li');
+                    installButton.innerHTML = `
+                        <button class="install-button">
+                            <i class="fas fa-download"></i>
+                            Install App
+                        </button>
+                    `;
+                    navLinks.appendChild(installButton);
+
+                    // Add click handler to install button
+                    installButton.addEventListener('click', async () => {
+                        if (!deferredPrompt) return;
+                        
+                        // Show the install prompt
+                        deferredPrompt.prompt();
+                        
+                        // Wait for user response
+                        const { outcome } = await deferredPrompt.userChoice;
+                        
+                        // Clear the deferredPrompt
+                        deferredPrompt = null;
+                        
+                        // Remove install button
+                        installButton.remove();
+                        
+                        if (outcome === 'accepted') {
+                            showNotification('App installed successfully!', 'success');
+                        }
+                    });
                 }
+            });
+
+            // Handle successful installation
+            window.addEventListener('appinstalled', (e) => {
+                // Remove install button if it exists
+                const installButton = document.querySelector('.install-button')?.parentElement;
+                if (installButton) {
+                    installButton.remove();
+                }
+                deferredPrompt = null;
+                
+                showNotification('App installed successfully!', 'success');
             });
         }
     </script>
