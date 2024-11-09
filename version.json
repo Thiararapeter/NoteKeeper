@@ -1,13 +1,117 @@
-{
-    "version": "1.0.2",
-    "releaseDate": "2024-03-14",
-    "minVersion": "1.0.0",
-    "updateUrl": "https://notekeeper-git-main-thiararapeters-projects.vercel.app/",
-    "changelog": [
-        "Added view note modal",
-        "Improved category management with color picker",
-        "Enhanced UI/UX with better animations",
-        "Added pagination for better note organization",
-        "Fixed accessibility issues"
-    ]
-} 
+{
+
+    "version": "1.0.3",
+
+    "releaseDate": "2024-03-14",
+
+    "minVersion": "1.0.0",
+
+    "updateUrl": "https://notekeeper-git-main-thiararapeters-projects.vercel.app/",
+
+    "changelog": [
+
+        "Added Progressive Web App (PWA) support",
+
+        "App can now be installed on devices",
+
+        "Added offline support",
+
+        "Improved app performance",
+
+        "Added app icons for better installation experience"
+
+    ],
+
+    "changelogHistory": [
+
+        {
+
+            "version": "1.0.3",
+
+            "date": "2024-03-14",
+
+            "changes": [
+
+                "Added Progressive Web App (PWA) support",
+
+                "App can now be installed on devices",
+
+                "Added offline support",
+
+                "Improved app performance",
+
+                "Added app icons for better installation experience"
+
+            ]
+
+        },
+
+        {
+
+            "version": "1.0.2",
+
+            "date": "2024-03-14",
+
+            "changes": [
+
+                "Added view note modal",
+
+                "Improved category management with color picker",
+
+                "Enhanced UI/UX with better animations",
+
+                "Added pagination for better note organization",
+
+                "Fixed accessibility issues"
+
+            ]
+
+        },
+
+        {
+
+            "version": "1.0.1",
+
+            "date": "2024-03-14",
+
+            "changes": [
+
+                "Added dark/light theme toggle",
+
+                "Added category management",
+
+                "Added note pinning feature",
+
+                "Added favorite notes feature",
+
+                "Improved mobile responsiveness"
+
+            ]
+
+        },
+
+        {
+
+            "version": "1.0.0",
+
+            "date": "2024-03-14",
+
+            "changes": [
+
+                "Initial release",
+
+                "Basic note management",
+
+                "Rich text editing",
+
+                "Search functionality",
+
+                "Category filtering"
+
+            ]
+
+        }
+
+    ]
+
+} 
