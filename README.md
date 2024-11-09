@@ -113,4 +113,4 @@ This project is licensed under the MIT License.
 - [ ] Rich media support
 
 ---
-Made with ❤️ by [Peter Thiarara](https://github.com/Thiararapeter)
+Made with ❤️ by [Thiarara SuperWP](https://github.com/Thiararapeter)
