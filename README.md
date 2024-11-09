@@ -112,5 +112,8 @@ This project is licensed under the MIT License.
 - [ ] Export/Import
 - [ ] Rich media support
 
+## Version History
+See [CHANGELOG.md](CHANGELOG.md) for a detailed version history and list of changes.
+
 ---
 Made with ❤️ by [Thiarara SuperWP](https://github.com/Thiararapeter)

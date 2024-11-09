@@ -1772,22 +1772,46 @@ input:valid, textarea:valid, select:valid {
 
 .update-actions {
     display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.update-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
 }
 
 .update-button {
-    background: var(--accent-color);
+    background-color: #1a73e8;
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.3s ease;
 }
 
 .update-button:hover {
-    background: #0769b5;
-    transform: translateY(-2px);
+    background-color: #1557b0;
+}
+
+.dismiss-button {
+    padding: 4px 8px !important;
+    background-color: transparent;
+    color: #666;
+}
+
+.dismiss-button:hover {
+    background-color: #f0f0f0;
+}
+
+.update-actions button:not(.update-button):not(.dismiss-button) {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.update-actions button:not(.update-button):not(.dismiss-button):hover {
+    background-color: #e0e0e0;
 }
 
 .update-changelog {
