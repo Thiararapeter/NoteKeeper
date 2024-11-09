@@ -1,13 +1,13 @@
-{
-    "version": "1.0.2",
-    "releaseDate": "2024-03-14",
-    "minVersion": "1.0.0",
-    "updateUrl": "https://github.com/Thiararapeter/NoteKeeper/releases/latest",
-    "changelog": [
-        "Added view note modal",
-        "Improved category management with color picker",
-        "Enhanced UI/UX with better animations",
-        "Added pagination for better note organization",
-        "Fixed accessibility issues"
-    ]
-} 
+{
+    "version": "1.0.2",
+    "releaseDate": "2024-03-14",
+    "minVersion": "1.0.0",
+    "updateUrl": "https://notekeeper-git-main-thiararapeters-projects.vercel.app/",
+    "changelog": [
+        "Added view note modal",
+        "Improved category management with color picker",
+        "Enhanced UI/UX with better animations",
+        "Added pagination for better note organization",
+        "Fixed accessibility issues"
+    ]
+} 
