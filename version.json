@@ -1,8 +1,8 @@
 {
 
-    "version": "1.0.4",
+    "version": "1.0.5",
 
-    "releaseDate": "2024-03-20",
+    "releaseDate": "2024-03-21",
 
     "minVersion": "1.0.0",
 
@@ -10,19 +10,41 @@
 
     "changelog": [
 
-        "Added detailed changelog page",
-
-        "Added version history tracking",
+        "Added update preferences (Hide until next, View later, Never show)",
 
         "Improved update notification system",
 
-        "Enhanced user interface",
+        "Fixed service worker caching issues",
 
-        "Added 'Made with ❤️' footer"
+        "Enhanced offline support",
+
+        "Improved app performance"
 
     ],
 
     "changelogHistory": [
+
+        {
+
+            "version": "1.0.5",
+
+            "date": "2024-03-21",
+
+            "changes": [
+
+                "Added update preferences (Hide until next, View later, Never show)",
+
+                "Improved update notification system",
+
+                "Fixed service worker caching issues",
+
+                "Enhanced offline support",
+
+                "Improved app performance"
+
+            ]
+
+        },
 
         {
 

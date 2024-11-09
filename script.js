@@ -16,7 +16,7 @@ async function checkForUpdates() {
 
     try {
 
-        const response = await fetch(VERSION_CHECK_URL);
+        const response = await fetch(`${VERSION_CHECK_URL}?t=${Date.now()}`);
 
         if (!response.ok) {
 
@@ -26,13 +26,21 @@ async function checkForUpdates() {
 
         const data = await response.json();
 
-        console.log('Version check:', { current: APP_VERSION, latest: data.version });
+        const currentVersion = localStorage.getItem('APP_VERSION') || '1.0.0';
 
-        
+        if (data.version > currentVersion) {
 
-        if (data.version > APP_VERSION) {
+            const hiddenUpdates = JSON.parse(localStorage.getItem('hiddenUpdates') || '{}');
 
-            showUpdateNotification(data);
+            const hideUntil = hiddenUpdates[data.version];
+
+            if (!hideUntil || 
+
+                (hideUntil !== 'never' && new Date(hideUntil) <= new Date())) {
+
+                showUpdateNotification(data);
+
+            }
 
         }
 
@@ -140,51 +148,31 @@ async function performUpdate(newVersion) {
 
     try {
 
-        // Update app version
+        const registrations = await navigator.serviceWorker.getRegistrations();
+
+        await Promise.all(registrations.map(reg => reg.unregister()));
+
+        
+
+        const keys = await caches.keys();
+
+        await Promise.all(keys.map(key => caches.delete(key)));
+
+        
 
         localStorage.setItem('APP_VERSION', newVersion);
 
         
 
-        // Clear any cached data
-
-        const keysToKeep = ['notes', 'categories', 'theme'];
-
-        for (let key in localStorage) {
-
-            if (!keysToKeep.includes(key)) {
-
-                localStorage.removeItem(key);
-
-            }
-
-        }
-
-
-
-        // Show updating message
-
         showNotification('Updating to version ' + newVersion + '...', 'success');
 
-
-
-        // Simulate update process
-
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-
-
-        // Reload the app
-
-        showNotification('Update complete! Reloading...', 'success');
+        
 
         setTimeout(() => {
 
-            window.location.reload();
+            window.location.reload(true);
 
-        }, 1500);
-
-
+        }, 1000);
 
     } catch (error) {
 

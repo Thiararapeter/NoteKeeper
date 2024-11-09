@@ -1,4 +1,4 @@
-const CACHE_NAME = 'notekeeper-cache-v1.0.4';
+const CACHE_NAME = 'notekeeper-cache-v1.0.5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -19,7 +19,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        return cache.addAll(ASSETS_TO_CACHE);
+        return cache.addAll(ASSETS_TO_CACHE.map(url => new Request(url, {mode: 'no-cors'})));
       })
       .catch((error) => {
         console.error('Cache installation failed:', error);
@@ -41,44 +41,50 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  // Ensure the new service worker takes control immediately
   return self.clients.claim();
 });
 
 // Fetch event - serve from cache, falling back to network
 self.addEventListener('fetch', (event) => {
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  // Handle the fetch
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Return cached response if found
         if (response) {
           return response;
         }
 
-        // Clone the request because it can only be used once
+        // Clone the request
         const fetchRequest = event.request.clone();
 
-        // Make network request and cache the response
-        return fetch(fetchRequest).then((response) => {
-          // Check if response is valid
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+        return fetch(fetchRequest)
+          .then((response) => {
+            // Check if we received a valid response
+            if (!response || response.status !== 200) {
+              return response;
+            }
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            // Cache the response
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              })
+              .catch((err) => console.error('Cache put error:', err));
+
             return response;
-          }
-
-          // Clone the response because it can only be used once
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-      })
-      .catch(() => {
-        // Return a fallback response for offline access
-        return new Response('Offline - Content not available');
+          })
+          .catch(() => {
+            // Return offline fallback
+            return caches.match('./offline.html');
+          });
       })
   );
 });
