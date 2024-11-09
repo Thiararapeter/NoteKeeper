@@ -1,7 +1,7 @@
 const NOTES_PER_PAGE = 12;
 let currentPage = 1;
 
-const APP_VERSION = '1.0.2';
+const APP_VERSION = localStorage.getItem('APP_VERSION') || '1.0.1';
 const VERSION_CHECK_URL = 'http://localhost:8000/version.json'; // For development
 // const VERSION_CHECK_URL = 'https://raw.githubusercontent.com/Thiararapeter/NoteKeeper/main/version.json'; // For production
 
@@ -30,9 +30,9 @@ function showUpdateNotification(updateData) {
             <h3>🚀 New Version Available!</h3>
             <p>Version ${updateData.version} is now available</p>
             <div class="update-actions">
-                <a href="${updateData.updateUrl}" target="_blank" class="update-button">
+                <button onclick="performUpdate('${updateData.version}')" class="update-button">
                     Update Now
-                </a>
+                </button>
                 <button onclick="this.parentElement.parentElement.parentElement.remove()">
                     Later
                 </button>
@@ -47,6 +47,37 @@ function showUpdateNotification(updateData) {
     `;
     
     document.body.appendChild(notification);
+}
+
+async function performUpdate(newVersion) {
+    try {
+        // Update app version
+        localStorage.setItem('APP_VERSION', newVersion);
+        
+        // Clear any cached data
+        const keysToKeep = ['notes', 'categories', 'theme'];
+        for (let key in localStorage) {
+            if (!keysToKeep.includes(key)) {
+                localStorage.removeItem(key);
+            }
+        }
+
+        // Show updating message
+        showNotification('Updating to version ' + newVersion + '...', 'success');
+
+        // Simulate update process
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Reload the app
+        showNotification('Update complete! Reloading...', 'success');
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
+
+    } catch (error) {
+        console.error('Update failed:', error);
+        showNotification('Update failed. Please try again.', 'error');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
