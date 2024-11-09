@@ -1,12 +1,13 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.2",
     "releaseDate": "2024-03-14",
     "minVersion": "1.0.0",
     "updateUrl": "https://github.com/Thiararapeter/NoteKeeper/releases/latest",
     "changelog": [
-        "Initial release",
-        "Basic note management",
-        "Category system",
-        "Dark mode support"
+        "Added view note modal",
+        "Improved category management with color picker",
+        "Enhanced UI/UX with better animations",
+        "Added pagination for better note organization",
+        "Fixed accessibility issues"
     ]
 } 

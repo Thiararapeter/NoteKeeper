@@ -2,8 +2,8 @@
     --bg-primary: #f0f2f5;
     --bg-secondary: #ffffff;
     --text-primary: #1a1a1a;
-    --text-secondary: #65676b;
-    --accent-color: #1877f2;
+    --text-secondary: #4a5568;
+    --accent-color: #1a73e8;
     --border-color: #dddfe2;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --nav-bg: #ffffff;
@@ -15,8 +15,8 @@
     --bg-primary: #18191a;
     --bg-secondary: #242526;
     --text-primary: #e4e6eb;
-    --text-secondary: #b0b3b8;
-    --accent-color: #2d88ff;
+    --text-secondary: #cbd5e0;
+    --accent-color: #4285f4;
     --border-color: #3e4042;
     --shadow-color: rgba(0, 0, 0, 0.3);
     --nav-bg: #242526;
@@ -763,7 +763,8 @@ select {
 
 /* Fix note category colors for dark mode */
 .note-category {
-    color: #2d3436;
+    color: #000000;
+    font-weight: 500;
 }
 
 /* Update menu toggle visibility */
@@ -1239,6 +1240,7 @@ input:valid, textarea:valid, select:valid {
 .version-timestamp {
     font-size: 0.9rem;
     color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .version-author {
@@ -1417,7 +1419,7 @@ input:valid, textarea:valid, select:valid {
 
 .page-info {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     background: var(--bg-secondary);
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -1433,7 +1435,7 @@ input:valid, textarea:valid, select:valid {
 }
 
 .connect-text {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-size: 0.9rem;
 }
 
@@ -1529,7 +1531,7 @@ input:valid, textarea:valid, select:valid {
 
 /* Style for the Connect text */
 .connect-text {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -1835,7 +1837,7 @@ input:valid, textarea:valid, select:valid {
 }
 
 .release-date {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-size: 0.9rem;
 }
 

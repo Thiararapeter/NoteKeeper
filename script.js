@@ -1,13 +1,18 @@
 const NOTES_PER_PAGE = 12;
 let currentPage = 1;
 
-const APP_VERSION = '1.0.0';
-const VERSION_CHECK_URL = 'https://raw.githubusercontent.com/Thiararapeter/NoteKeeper/main/version.json';
+const APP_VERSION = '1.0.2';
+const VERSION_CHECK_URL = 'http://localhost:8000/version.json'; // For development
+// const VERSION_CHECK_URL = 'https://raw.githubusercontent.com/Thiararapeter/NoteKeeper/main/version.json'; // For production
 
 async function checkForUpdates() {
     try {
         const response = await fetch(VERSION_CHECK_URL);
+        if (!response.ok) {
+            throw new Error('Failed to fetch version info');
+        }
         const data = await response.json();
+        console.log('Version check:', { current: APP_VERSION, latest: data.version });
         
         if (data.version > APP_VERSION) {
             showUpdateNotification(data);
