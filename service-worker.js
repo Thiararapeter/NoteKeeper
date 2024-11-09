@@ -46,8 +46,9 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache, falling back to network
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
+  // Skip non-GET requests and chrome-extension requests
+  if (event.request.method !== 'GET' || 
+      event.request.url.startsWith('chrome-extension://')) {
     return;
   }
 
@@ -62,29 +63,35 @@ self.addEventListener('fetch', (event) => {
         // Clone the request
         const fetchRequest = event.request.clone();
 
-        return fetch(fetchRequest)
-          .then((response) => {
-            // Check if we received a valid response
-            if (!response || response.status !== 200) {
+        // Only cache same-origin requests
+        if (new URL(event.request.url).origin === location.origin) {
+          return fetch(fetchRequest)
+            .then((response) => {
+              // Check if we received a valid response
+              if (!response || response.status !== 200) {
+                return response;
+              }
+
+              // Clone the response
+              const responseToCache = response.clone();
+
+              // Cache the response
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                })
+                .catch((err) => console.error('Cache put error:', err));
+
               return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            // Cache the response
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              })
-              .catch((err) => console.error('Cache put error:', err));
-
-            return response;
-          })
-          .catch(() => {
-            // Return offline fallback
-            return caches.match('./offline.html');
-          });
+            });
+        } else {
+          // For cross-origin requests, just fetch without caching
+          return fetch(fetchRequest);
+        }
+      })
+      .catch(() => {
+        // Return offline fallback
+        return caches.match('./offline.html');
       })
   );
 });
