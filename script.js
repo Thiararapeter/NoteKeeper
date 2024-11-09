@@ -680,27 +680,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for updates
     checkForUpdates();
 
-    // Add to your DOMContentLoaded event
+    // Replace the existing install app related code with this updated version:
     let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-        // Stash the event so it can be triggered later
-        deferredPrompt = e;
-        // Show your install button or UI element
-        showInstallButton();
-    });
+    let installButton = null; // Track the install button element
 
     function showInstallButton() {
-        // Create install button
-        const installBtn = document.createElement('button');
-        installBtn.innerHTML = '<i class="fas fa-download"></i> Install App';
-        installBtn.className = 'install-button';
-        installBtn.onclick = installApp;
-        
-        // Add to navbar or wherever you want
-        document.querySelector('.nav-links').appendChild(installBtn);
+        // Only create and show button if it doesn't already exist
+        if (!installButton && !document.querySelector('.install-button')) {
+            installButton = document.createElement('button');
+            installButton.innerHTML = '<i class="fas fa-download"></i> Install App';
+            installButton.className = 'install-button';
+            installButton.onclick = installApp;
+            
+            // Add to navbar
+            document.querySelector('.nav-links').appendChild(installButton);
+        }
     }
 
     async function installApp() {
@@ -712,11 +706,36 @@ document.addEventListener('DOMContentLoaded', () => {
         // Wait for the user to respond to the prompt
         const { outcome } = await deferredPrompt.userChoice;
         
-        // We no longer need the prompt
+        // Remove the install button regardless of outcome
+        if (installButton) {
+            installButton.remove();
+            installButton = null;
+        }
+        
+        // Clear the deferredPrompt
         deferredPrompt = null;
         
         if (outcome === 'accepted') {
             showNotification('App installed successfully!', 'success');
         }
     }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        // Show install button
+        showInstallButton();
+    });
+
+    // Add this new event listener to handle when the app is successfully installed
+    window.addEventListener('appinstalled', (e) => {
+        // Remove the install button if it exists
+        if (installButton) {
+            installButton.remove();
+            installButton = null;
+        }
+        deferredPrompt = null;
+    });
 });
